@@ -23,10 +23,9 @@ This package allows to:
 
 Installation
 ------------
+::
 
- ::
-
-      composer require sourcebroker/deployer-loader ^1.0.0
+  composer require sourcebroker/deployer-loader ^1.0.0
 
 
 Usage
@@ -45,11 +44,10 @@ will be executed after deployer composer spl_autoload_register. So first classes
 initiated and if they will not exists they will fallback to classes supported by
 vendor/sourcebroker/deployer-loader/autoload.php
 
-Include class loader at the beginning of your deploy.php.
+Include class loader at the beginning of your deploy.php:
+::
 
- ::
-
-    require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
+  require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
 
 
 After this point in code you can use all vendor classes declared in psr4 of your composer.json files.
@@ -60,7 +58,7 @@ Include deployer recipes and settings
 
 - Single file:
 
- ::
+  ::
 
    new \SourceBroker\DeployerLoader\Load(
       [path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:copy.php'],
