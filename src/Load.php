@@ -15,15 +15,26 @@ class Load
     {
         $fileUtility = new FileUtility();
         foreach ($locationsToLoad as $locationToLoad) {
-            if(!empty($locationToLoad['path'])) {
-                if (is_dir($locationToLoad['path'])) {
+            if (!empty($locationToLoad['path'])) {
+                $absolutePath = $this->projectRootAbsolutePath() . '/' . ltrim($locationToLoad['path'], '/\\');
+                if (is_dir($absolutePath)) {
                     $fileUtility->requireFilesFromDirectoryReqursively(
-                        $locationToLoad['path'],
-                        isset($locationToLoad['excludePattern']) ? $locationToLoad['excludePattern'] : null);
+                        $absolutePath,
+                        !empty($locationToLoad['excludePattern']) ? $locationToLoad['excludePattern'] : null);
                 } else {
-                    $fileUtility->requireFile($locationToLoad['path']);
+                    $fileUtility->requireFile($absolutePath);
                 }
             }
         }
+    }
+
+    /**
+     * Return absolute path to project root so we can add it to relative pathes.
+     *
+     * @return bool|string
+     */
+    protected function projectRootAbsolutePath()
+    {
+        return realpath(__DIR__ . '/../../../../');
     }
 }
