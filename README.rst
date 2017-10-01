@@ -74,10 +74,11 @@ Include deployer recipes and settings
    new \SourceBroker\DeployerLoader\Load(
       [
         path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/'
-        excludePattern => 'move'
+        excludePattern => '/move/'
       ],
       [
         path => 'vendor/sourcebroker/deployer-extended-media/deployer/media/task/'
       ],
    );
 
+  You can use preg_match "excludePattern" to exclude files.
