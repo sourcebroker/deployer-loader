@@ -16,10 +16,11 @@ What does it do?
 ----------------
 
 This package allows to:
- 1) Register your project vendor classes to be used in deploy.php. Read "Include class loader" for more info why you
-    should not include your project vendor/autoload.php in deploy.php.
- 2) Load single tasks.
- 3) Load multiple tasks from folders.
+
+1. Register your project vendor classes to be used in deploy.php. Read "Include class loader" for more info why you
+   should not include your project vendor/autoload.php in deploy.php.
+2. Load single tasks.
+3. Load multiple tasks from folders.
 
 Installation
 ------------
@@ -34,17 +35,19 @@ Usage
 Include class loader
 ++++++++++++++++++++
 
-If Deployer is used from phar file (and this is the preferred way to not pollute project with dependencies of
-deployment stuff) then it is already including his own vendor/autoload.php. If we will require again vendor/autoload.php
-from our project then it can overwrite libraries of Deployer package leading to unexpected errors because code of
-Deployer can expect to use some other version of library that the one from your project vendor/autoload.php.
+If Deployer is used as phar directly or by ./vendor/bin/dep form deployer/dist (and this is the preferred way to not
+pollute project with dependencies of deployment stuff) then it is already including his own vendor/autoload.php. If in
+deploy.php file we will require new vendor/autoload.php from our project then its like asking for troubles because we
+are joining two autoload with not synchronized dependencies. The second composer autoload is overwriting libraries from
+first autoload leading to situation that deployer will use newer(or older) libraries from your project.
 
-The loader from /vendor/sourcebroker/deployer-loader/autoload.php will register with spl_autoload_register and
-will be executed after deployer composer spl_autoload_register. So first classes from Deployer composer autoload will be
-initiated and if they will not exists they will fallback to classes supported by
-vendor/sourcebroker/deployer-loader/autoload.php
+The solution is to include in deploy.php the autoload.php from sourcebroker/deployer-loader.
 
-Include class loader at the beginning of your deploy.php:
+Using spl_autoload_register() it will register new closure function to find classes and it will register itself after
+composer autoload. So first classes from Deployer composer autoload will be initiated and if they will not exists
+there will be fallback to classes from the main project vendors.
+
+How to use it ? Just include autoload at the beginning of your deploy.php (and remove vendor/autoload.php if you had one)
 ::
 
   require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
@@ -55,6 +58,9 @@ After this point in code you can use all vendor classes declared in psr4 of your
 
 Include deployer recipes and settings
 +++++++++++++++++++++++++++++++++++++
+
+The package sourcebroker/deployer-loader allows you also to include single files of munch of files form folder
+(recursively)
 
 - Single file:
 
