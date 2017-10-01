@@ -82,3 +82,9 @@ Include deployer recipes and settings
    );
 
   You can use preg_match "excludePattern" to exclude files.
+
+
+Changelog
+---------
+
+See https://github.com/sourcebroker/deployer-loader/blob/master/CHANGELOG.rst
