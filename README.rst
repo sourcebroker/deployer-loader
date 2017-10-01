@@ -12,6 +12,7 @@ deployer-loader
 
 .. contents:: :local:
 
+
 What does it do?
 ----------------
 
@@ -22,11 +23,12 @@ This package allows to:
 2. Load single task/setting file.
 3. Load multiple tasks/settings files from folders.
 
+
 Installation
 ------------
 ::
 
-  composer require sourcebroker/deployer-loader ^1.0.0
+  composer require sourcebroker/deployer-loader
 
 
 Usage
@@ -56,8 +58,8 @@ How to use it ? Just include autoload at the beginning of your deploy.php (and r
 After this point in code you can use all vendor classes declared in psr4 of your composer.json files.
 
 
-Loading deployer files with task definitions
-++++++++++++++++++++++++++++++++++++++++++++
+Loading deployer tasks
+++++++++++++++++++++++
 
 The package sourcebroker/deployer-loader allows you also to include single files or bunch of files from folder
 (recursively).
