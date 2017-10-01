@@ -19,8 +19,8 @@ This package allows to:
 
 1. Register your project vendor classes to be used in deploy.php. Read "Include class loader" for more info why you
    should not include your project vendor/autoload.php in deploy.php.
-2. Load single tasks.
-3. Load multiple tasks from folders.
+2. Load single task/setting file.
+3. Load multiple tasks/settings files from folders.
 
 Installation
 ------------
@@ -56,13 +56,13 @@ How to use it ? Just include autoload at the beginning of your deploy.php (and r
 After this point in code you can use all vendor classes declared in psr4 of your composer.json files.
 
 
-Include deployer recipes and settings
-+++++++++++++++++++++++++++++++++++++
+Loading deployer files with task definitions
+++++++++++++++++++++++++++++++++++++++++++++
 
-The package sourcebroker/deployer-loader allows you also to include single files of munch of files form folder
-(recursively)
+The package sourcebroker/deployer-loader allows you also to include single files or bunch of files from folder
+(recursively).
 
-- Single file:
+- Example for loading single file:
 
   ::
 
@@ -71,17 +71,17 @@ The package sourcebroker/deployer-loader allows you also to include single files
       [path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:move.php'],
    );
 
-- All files from folder recursively:
+- Example for loading all files from folder recursively:
 
   ::
 
    new \SourceBroker\DeployerLoader\Load(
       [
-        path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/'
+        path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/'
         excludePattern => '/move/'
       ],
       [
-        path => 'vendor/sourcebroker/deployer-extended-media/deployer/media/task/'
+        path => 'vendor/sourcebroker/deployer-extended-media/deployer/media/'
       ],
    );
 
