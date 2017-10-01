@@ -1,0 +1,22 @@
+{
+  "name": "sourcebroker/deployer-loader",
+  "description": "Autoload of vendors and autoload of deployer tasks.",
+  "license": "MIT",
+  "keywords": [
+    "deployer"
+  ],
+  "authors": [
+    {
+      "name": "Krystian Szymukowicz",
+      "email": "k.szymukowicz@gmail.com"
+    }
+  ],
+  "require": {
+    "deployer/dist": "~4.3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "SourceBroker\\DeployerLoader\\": "src/"
+    }
+  }
+}
