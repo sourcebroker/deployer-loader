@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+1.0.3
+~~~~~
+
+1) Check if namespace is not empty.
+
 1.0.2
 ~~~~~
 

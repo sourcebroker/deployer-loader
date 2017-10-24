@@ -17,7 +17,7 @@ spl_autoload_register(function ($className) {
         throw new \Exception('Can not load: "' . realpath(__DIR__ . '/../../../vendor/composer/autoload_psr4.php') . '"');
     }
     foreach ($autoloadPsr4 as $namespace => $namespacePath) {
-        if (strpos($className, $namespace) === 0) {
+        if (!empty($namespace) && strpos($className, $namespace) === 0) {
             $requireClassPath = $namespacePath[0] . '/' .
                 str_replace('\\', '/', substr($className, strlen($namespace))) . '.php';
             if (file_exists($requireClassPath)) {
