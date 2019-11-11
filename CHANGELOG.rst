@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+2.0.0
+~~~~~
+
+1) Remove dependency to deployer.
+
 1.0.3
 ~~~~~
 

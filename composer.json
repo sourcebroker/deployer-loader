@@ -11,9 +11,6 @@
       "email": "k.szymukowicz@gmail.com"
     }
   ],
-  "require": {
-    "deployer/dist": "^6.4.0"
-  },
   "autoload": {
     "psr-4": {
       "SourceBroker\\DeployerLoader\\": "src/"
