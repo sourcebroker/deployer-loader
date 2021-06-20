@@ -4,31 +4,27 @@
  * deployment stuff) then it is already including his vendor/autoload.php. If we will require again vendor/autoload.php
  * from our project then it can overwrite libraries leading to unexpected errors.
  *
- * This spl_autoload_register will register after deployer composer so there should not be problems like above. First
- * classes from Deployer composer autoload will be initiated and if they will not exists they will fallback to classes
+ * This spl_autoload_register will register after deployer phar so there should not be problems like above. First
+ * classes from Deployer phar autoload will be initiated and if they will not exists they will fallback to classes
  * defined here - so all defined in our project vendors psr4 areas.
 */
 
-spl_autoload_register(function ($className) {
-    if (file_exists(__DIR__ . '/../../../vendor/composer/autoload_psr4.php')) {
-        /** @noinspection PhpIncludeInspection */
-        $autoloadPsr4 = include(__DIR__ . '/../../../vendor/composer/autoload_psr4.php');
-    } else {
-        throw new \Exception('Can not load: "' . realpath(__DIR__ . '/../../../vendor/composer/autoload_psr4.php') . '"');
+spl_autoload_register(static function ($className) {
+    $psr4File = __DIR__ . '/../../../vendor/composer/autoload_psr4.php';
+    if (!file_exists($psr4File)) {
+        throw new RuntimeException('Can not load: "' . realpath($psr4File) . '"');
     }
-    $classPathList = [];
+    /** @noinspection PhpIncludeInspection */
+    $autoloadPsr4 = include($psr4File);
     foreach ($autoloadPsr4 as $namespace => $namespacePath) {
         if (!empty($namespace) && strpos($className, $namespace) === 0) {
-            $requireClassPath = $namespacePath[0] . '/' .
+            $includeClassPath = $namespacePath[0] . '/' .
                 str_replace('\\', '/', substr($className, strlen($namespace))) . '.php';
-            if (file_exists($requireClassPath)) {
+            if (file_exists($includeClassPath)) {
                 /** @noinspection PhpIncludeInspection */
-                include($requireClassPath);
+                include($includeClassPath);
                 return;
-            } else {
-                $classPathList[] = $requireClassPath;
             }
         }
     }
-    throw new \Exception('Can not find: ' . implode(' ', $classPathList));
 });
