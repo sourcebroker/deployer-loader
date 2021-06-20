@@ -16,6 +16,7 @@ spl_autoload_register(function ($className) {
     } else {
         throw new \Exception('Can not load: "' . realpath(__DIR__ . '/../../../vendor/composer/autoload_psr4.php') . '"');
     }
+    $classPathList = [];
     foreach ($autoloadPsr4 as $namespace => $namespacePath) {
         if (!empty($namespace) && strpos($className, $namespace) === 0) {
             $requireClassPath = $namespacePath[0] . '/' .
@@ -23,9 +24,11 @@ spl_autoload_register(function ($className) {
             if (file_exists($requireClassPath)) {
                 /** @noinspection PhpIncludeInspection */
                 include($requireClassPath);
+                return;
             } else {
-                throw new \Exception('Can not find: ' . $requireClassPath);
+                $classPathList[] = $requireClassPath;
             }
         }
     }
+    throw new \Exception('Can not find: ' . implode(' ', $classPathList));
 });
