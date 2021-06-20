@@ -37,18 +37,18 @@ Usage
 Include class loader
 ++++++++++++++++++++
 
-If Deployer is used as phar directly or by `./vendor/bin/dep` form deployer/dist (and this is the preferred way to not
-pollute project with dependencies of deployment stuff) then it is already including his own `vendor/autoload.php`. If in
-`deploy.php` file we will require `vendor/autoload.php` from our project then it's like asking for trouble because we
-are joining two autoloads with non synchronized dependencies. The second composer `vendor/autoload.php` added by us in
-deploy.php has priority because the composer uses the `prepend` parameter of spl_autoload_register() method which adds
+If Deployer is used as phar directly or by ``./vendor/bin/dep`` form deployer/dist (and this is the preferred way to not
+pollute project with dependencies of deployment stuff) then it is already including his own ``vendor/autoload.php``. If in
+``deploy.php`` file we will require ``vendor/autoload.php`` from our project then it's like asking for trouble because we
+are joining two autoloads with non synchronized dependencies. The second composer ``vendor/autoload.php`` added by us in
+``deploy.php`` has priority because the composer uses the ``prepend`` parameter of spl_autoload_register() method which adds
 an autoloader on the beginning of the autoload queue instead of appending it. So classes from our project will be used
 before classes from Deployer phar.
 
 The solution is to include in deploy.php the autoload.php from sourcebroker/deployer-loader.
 
 Using spl_autoload_register() it will register new closure function to find classes and it will register itself without
-`prepend` parameter. So first classes from Deployer phar autoload will be used and if they will not exists
+``prepend`` parameter. So first classes from Deployer phar autoload will be used and if they will not exists
 there will be fallback to classes from the main project vendors.
 
 How to use it ? Just include autoload at the beginning of your deploy.php (and remove vendor/autoload.php if you had one)
