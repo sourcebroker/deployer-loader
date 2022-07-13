@@ -7,6 +7,7 @@ master
 1) [TASK] Simplify autoload.php with require instead of include.
 2) [TASK][BREAKING] Remove not needed public method requireFile.
 3) [TASK][BREAKING] Make loader to load files alphabetically.
+4) [TASK][BREAKING] Rename public method requireFilesFromDirectoryRecursively because of typo.
 
 2.0.1
 ~~~~~

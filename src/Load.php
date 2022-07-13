@@ -18,7 +18,7 @@ class Load
             if (!empty($locationToLoad['path'])) {
                 $absolutePath = $this->projectRootAbsolutePath() . '/' . ltrim($locationToLoad['path'], '/\\');
                 if (is_dir($absolutePath)) {
-                    $fileUtility->requireFilesFromDirectoryReqursively(
+                    $fileUtility->requireFilesFromDirectoryRecursively(
                         $absolutePath,
                         !empty($locationToLoad['excludePattern']) ? $locationToLoad['excludePattern'] : null);
                 } else {

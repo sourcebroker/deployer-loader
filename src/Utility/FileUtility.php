@@ -17,7 +17,7 @@ class FileUtility
      * @param $absolutePath
      * @param null $excludePattern
      */
-    public function requireFilesFromDirectoryReqursively($absolutePath, $excludePattern = null)
+    public function requireFilesFromDirectoryRecursively($absolutePath, $excludePattern = null)
     {
         if (is_dir($absolutePath)) {
             $iterator = new RecursiveIteratorIterator(
