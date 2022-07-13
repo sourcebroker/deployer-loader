@@ -10,12 +10,7 @@
 */
 
 spl_autoload_register(static function ($className) {
-    $psr4File = __DIR__ . '/../../../vendor/composer/autoload_psr4.php';
-    if (!file_exists($psr4File)) {
-        throw new RuntimeException('Can not load: "' . realpath($psr4File) . '"');
-    }
-    /** @noinspection PhpIncludeInspection */
-    $autoloadPsr4 = include($psr4File);
+    $autoloadPsr4 = require(__DIR__ . '/../../../vendor/composer/autoload_psr4.php');
     foreach ($autoloadPsr4 as $namespace => $namespacePath) {
         if (!empty($namespace) && strpos($className, $namespace) === 0) {
             $includeClassPath = $namespacePath[0] . '/' .
