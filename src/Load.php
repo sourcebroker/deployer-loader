@@ -22,7 +22,7 @@ class Load
                         $absolutePath,
                         !empty($locationToLoad['excludePattern']) ? $locationToLoad['excludePattern'] : null);
                 } else {
-                    $fileUtility->requireFile($absolutePath);
+                    require($absolutePath);
                 }
             }
         }

@@ -39,17 +39,4 @@ class FileUtility
             }
         }
     }
-
-    /**
-     * RequireFile
-     *
-     * @param $absolutePath
-     */
-    public function requireFile($absolutePath)
-    {
-        if (file_exists($absolutePath)) {
-            /** @noinspection PhpIncludeInspection */
-            require_once $absolutePath;
-        }
-    }
 }
