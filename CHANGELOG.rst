@@ -6,7 +6,7 @@ master
 
 1) [TASK] Simplify autoload.php with require instead of include.
 2) [TASK][BREAKING] Remove not needed public method requireFile.
-
+3) [TASK][BREAKING] Make loader to load files alphabetically.
 
 2.0.1
 ~~~~~

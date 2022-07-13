@@ -24,6 +24,7 @@ class FileUtility
                 new RecursiveDirectoryIterator($absolutePath),
                 RecursiveIteratorIterator::SELF_FIRST
             );
+            $filesToRequire = [];
             foreach ($iterator as $file) {
                 /** @var $file SplFileInfo */
                 if ($file->isFile()) {
@@ -32,10 +33,17 @@ class FileUtility
                         $excludeMatch = preg_match($excludePattern, $file->getFilename());
                     }
                     if ($excludeMatch !== 1 && $file->getExtension() === 'php') {
-                        /** @noinspection PhpIncludeInspection */
-                        require_once $file->getRealPath();
+                        try {
+                            $filesToRequire[] = $file->getRealPath();
+                        } catch (\Exception $exception) {
+                            echo $exception->getMessage();
+                        }
                     }
                 }
+            }
+            sort($filesToRequire);
+            foreach ($filesToRequire as $file) {
+                require_once $file;
             }
         }
     }
