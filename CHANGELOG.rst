@@ -1,8 +1,8 @@
 Changelog
 ---------
 
-master
-~~~~~~
+3.0.0
+~~~~~
 
 1) [TASK] Simplify autoload.php with require instead of include.
 2) [TASK][BREAKING] Remove not needed public method requireFile.
