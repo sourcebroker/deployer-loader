@@ -35,6 +35,6 @@ class Load
      */
     protected function projectRootAbsolutePath()
     {
-        return dirname(dirname(dirname(dirname(__DIR__)))) . '/';
+        return dirname(__DIR__, 4);
     }
 }
