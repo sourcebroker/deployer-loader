@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Allow to install package in different folder than `vendor`, fe. in local folder.
+
 3.0.0
 ~~~~~
 

@@ -33,8 +33,16 @@ class Load
      *
      * @return bool|string
      */
-    protected function projectRootAbsolutePath()
+    public function projectRootAbsolutePath()
     {
-        return dirname(__DIR__, 4);
+        $dir = __DIR__;
+        while (!is_file($dir . '/composer.json') || basename($dir) === 'deployer-loader') {
+            if ($dir === \dirname($dir)) {
+                break;
+            }
+            $dir = \dirname($dir);
+        }
+
+        return $dir;
     }
 }

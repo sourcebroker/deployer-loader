@@ -2,6 +2,7 @@
 
 namespace SourceBroker\DeployerLoader\Utility;
 
+use Exception;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -17,7 +18,7 @@ class FileUtility
      * @param $absolutePath
      * @param null $excludePattern
      */
-    public function requireFilesFromDirectoryRecursively($absolutePath, $excludePattern = null)
+    public function requireFilesFromDirectoryRecursively($absolutePath, $excludePattern = null): void
     {
         if (is_dir($absolutePath)) {
             $iterator = new RecursiveIteratorIterator(
@@ -35,7 +36,7 @@ class FileUtility
                     if ($excludeMatch !== 1 && $file->getExtension() === 'php') {
                         try {
                             $filesToRequire[] = $file->getRealPath();
-                        } catch (\Exception $exception) {
+                        } catch (Exception $exception) {
                             echo $exception->getMessage();
                         }
                     }

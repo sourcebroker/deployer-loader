@@ -10,7 +10,16 @@
 */
 
 spl_autoload_register(static function ($className) {
-    $autoloadPsr4 = require(__DIR__ . '/../../../vendor/composer/autoload_psr4.php');
+
+    $dir = __DIR__;
+    while (!is_file($dir . '/composer.json') || basename($dir) === 'deployer-loader') {
+        if ($dir === \dirname($dir)) {
+            break;
+        }
+        $dir = \dirname($dir);
+    }
+
+    $autoloadPsr4 = require($dir . '/vendor/composer/autoload_psr4.php');
     foreach ($autoloadPsr4 as $namespace => $namespacePath) {
         if (!empty($namespace) && strpos($className, $namespace) === 0) {
             $includeClassPath = $namespacePath[0] . '/' .
