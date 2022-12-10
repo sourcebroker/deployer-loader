@@ -12,7 +12,7 @@
 spl_autoload_register(static function ($className) {
 
     $dir = __DIR__;
-    while (!is_file($dir . '/composer.json') || basename($dir) === 'deployer-loader') {
+    while ((!is_file($dir . '/composer.json') && !is_file($dir . '/root_dir') && !is_file($dir . '/deploy.php')) || basename($dir) === 'deployer-loader') {
         if ($dir === \dirname($dir)) {
             break;
         }

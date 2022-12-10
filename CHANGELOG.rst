@@ -5,6 +5,7 @@ master
 ~~~~~~
 
 1) [TASK] Allow to install package in different folder than `vendor`, fe. in local folder.
+2) [TASK] Extend the condition with filenames indicating root dir.
 
 3.0.0
 ~~~~~
