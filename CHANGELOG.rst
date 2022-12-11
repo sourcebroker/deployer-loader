@@ -1,8 +1,8 @@
 Changelog
 ---------
 
-master
-~~~~~~
+4.0.0
+~~~~~
 
 1) [TASK] Allow to install package in different folder than `vendor`, fe. in local folder.
 2) [TASK] Extend the condition with filenames indicating root dir.
