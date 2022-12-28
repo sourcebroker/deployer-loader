@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+4.0.1
+~~~~~
+
+1) [TASK] Code cleanup.
+
 4.0.0
 ~~~~~
 

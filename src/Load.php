@@ -4,11 +4,6 @@ namespace SourceBroker\DeployerLoader;
 
 use SourceBroker\DeployerLoader\Utility\FileUtility;
 
-/**
- * Class Load
- *
- * @package SourceBroker\DeployerLoader\Load
- */
 class Load
 {
     public function __construct($locationsToLoad)
@@ -28,12 +23,7 @@ class Load
         }
     }
 
-    /**
-     * Return absolute path to project root so we can add it to relative pathes.
-     *
-     * @return bool|string
-     */
-    public function projectRootAbsolutePath()
+    public function projectRootAbsolutePath(): string
     {
         $dir = __DIR__;
         while ((!is_file($dir . '/composer.json') && !is_file($dir . '/root_dir') && !is_file($dir . '/deploy.php')) || basename($dir) === 'deployer-loader') {
