@@ -1,6 +1,12 @@
 <?php
 
-/* If Deployer is used from phar file (and this is the preferred way to not pollute project with dependencies of
+/*
+ * DEPRECATED. Deployer use now low amount of dependencies and this loader should not be needed anymore.
+ *
+ *
+ *
+ *
+ * If Deployer is used from phar file (and this is the preferred way to not pollute project with dependencies of
  * deployment stuff) then it is already including his vendor/autoload.php. If we will require again vendor/autoload.php
  * from our project then it can overwrite libraries leading to unexpected errors.
  *

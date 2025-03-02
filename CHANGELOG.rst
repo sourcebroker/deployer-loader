@@ -5,6 +5,7 @@ Changelog
 ~~~~~
 
 1) [FEATURE] Add support for three new types of loaders: ``file_phar``, ``package`` and ``get``.
+2) [DEPRECATED] Deprecate special autoload. It is not needed anymore in newer versions of deployer.
 
 4.0.1
 ~~~~~
