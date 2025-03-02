@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+5.0.0
+~~~~~
+
+1) [FEATURE] Add support for three new types of loaders: ``file_phar``, ``package`` and ``get``.
+
 4.0.1
 ~~~~~
 

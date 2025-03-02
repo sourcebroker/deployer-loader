@@ -16,12 +16,11 @@ deployer-loader
 What does it do?
 ----------------
 
-This package allows to:
+This package allows to load:
 
-1. Register your project vendor classes to be used in deploy.php. Read "Include class loader" for more info why you
-   should not include your project vendor/autoload.php in deploy.php.
-2. Load single task/setting file.
-3. Load multiple tasks/settings files from folders.
+1) single task or set of tasks from given path -> loader type: ``path``
+2) set of tasks from "deployer" folder of composer package -> loader type: ``package``
+3) loader config from composer package -> loader type: ``get``
 
 
 Installation
@@ -34,62 +33,65 @@ Installation
 Usage
 -----
 
-Include class loader
-++++++++++++++++++++
+- TYPE ``path``
 
-If Deployer is used as phar from global install or from local in ``./vendor/bin/dep`` (installed from ``deployer/dist``) then
-it is already including his own ``vendor/autoload.php``. If in ``deploy.php`` file we will require ``vendor/autoload.php``
-from our project then it's like asking for trouble because we are joining two autoloads with non synchronized dependencies.
-The second composer ``vendor/autoload.php`` added by us in ``deploy.php`` has priority because the composer uses the
-``prepend`` parameter of ``spl_autoload_register()`` method which adds an autoloader on the beginning of the autoload
-queue instead of appending it. So classes from our project will be used before classes from Deployer phar.
-
-The solution is to include in ``deploy.php`` the autoload.php from ``sourcebroker/deployer-loader``.
-
-Using ``spl_autoload_register()`` it will register new closure function to find classes and it will register itself without
-``prepend`` parameter. So first classes from Deployer phar autoload will be used and if they will not exists
-there will be fallback to classes from the main project vendors.
-
-How to use it? Just include autoload at the beginning of your ``deploy.php`` (and remove ``vendor/autoload.php`` if you had one)
-
-::
-
-  require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
-
-
-After this point in code you can use all vendor classes declared in psr4 of your ``composer.json`` files.
-
-
-Loading deployer tasks
-++++++++++++++++++++++
-
-The package sourcebroker/deployer-loader allows you also to include single files or bunch of files from folder
-(recursively).
-
-- Example for loading single file:
+  You can load single file or multiple files. You can use ``excludePattern`` to exclude.
 
   ::
 
    new \SourceBroker\DeployerLoader\Load(
-      [path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:copy.php'],
-      [path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:move.php'],
+      ['path' => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:copy.php'],
+      ['path' => 'vendor/sourcebroker/deployer-extended-database/deployer/db/task/db:move.php'],
    );
 
-- Example for loading all files from folder recursively:
+   new \SourceBroker\DeployerLoader\Load(
+      ['path' => 'vendor/sourcebroker/deployer-extended-database/deployer/db', 'excludePattern' => '/move/'],
+      ['path' => 'vendor/sourcebroker/deployer-extended-media/deployer/media'],
+   );
+
+
+- TYPE ``file_phar``
+
+  A file is loaded from relative to root project. Allows to include Deployer phar file.
 
   ::
 
    new \SourceBroker\DeployerLoader\Load(
-      [
-        path => 'vendor/sourcebroker/deployer-extended-database/deployer/db/'
-        excludePattern => '/move/'
-      ],
-      [
-        path => 'vendor/sourcebroker/deployer-extended-media/deployer/media/'
-      ],
+      ['file_phar' => 'recipe/common.php'],
    );
 
-  You can use preg_match "excludePattern" to exclude files.
+
+- TYPE ``package``
+
+  Files are loaded recursively form given package from hardcoded folder ``deployer``.
+
+  ::
+
+   new \SourceBroker\DeployerLoader\Load(
+      ['package' => 'sourcebroker/deployer-extended-database'],
+      ['package' => 'sourcebroker/deployer-extended-media'],
+   );
+
+- TYPE ``get``
+
+  In case of ``get`` first the file with array of loader configurations is read from given package.
+  The logic to read the file is like:
+
+  - First it checks if the composer.json file contains the key ``extra.sourcebroker/deployer.loader-file``.
+  - If the key exists, it read it and execute inclusions.
+  - If the key does not exist, it defaults to the path ``config/loader.php`` within the package directory.
+
+  Then the loader configurations read from that file are executed.
+
+  Example of loader file: https://github.com/sourcebroker/deployer-typo3-database/blob/main/config/loader.php
+
+  ::
+
+   new \SourceBroker\DeployerLoader\Load(
+      ['get' => 'sourcebroker/deployer-typo3-database'],
+      ['get' => 'sourcebroker/deployer-typo3-media'],
+      ['get' => 'sourcebroker/deployer-typo3-deploy-ci'],
+   );
 
 
 Changelog

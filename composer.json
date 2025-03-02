@@ -1,6 +1,6 @@
 {
   "name": "sourcebroker/deployer-loader",
-  "description": "Autoload of vendors and autoload of deployer tasks.",
+  "description": "Load deployer tasks and settings from packages, path files.",
   "license": "MIT",
   "keywords": [
     "deployer"
@@ -15,5 +15,8 @@
     "psr-4": {
       "SourceBroker\\DeployerLoader\\": "src/"
     }
+  },
+  "require": {
+    "ext-json": "*"
   }
 }

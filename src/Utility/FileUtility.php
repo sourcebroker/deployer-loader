@@ -7,17 +7,8 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 
-/**
- * Class FileUtility
- *
- * @package SourceBroker\DeployerLoader\Utility
- */
 class FileUtility
 {
-    /**
-     * @param $absolutePath
-     * @param null $excludePattern
-     */
     public function requireFilesFromDirectoryRecursively($absolutePath, $excludePattern = null): void
     {
         if (is_dir($absolutePath)) {
@@ -48,4 +39,17 @@ class FileUtility
             }
         }
     }
+
+    public function projectRootAbsolutePath(string $dir): string
+    {
+        while ((!is_file($dir . '/composer.json') && !is_file($dir . '/root_dir') && !is_file($dir . '/deploy.php')) || basename($dir) === 'deployer-loader') {
+            if ($dir === \dirname($dir)) {
+                break;
+            }
+            $dir = \dirname($dir);
+        }
+
+        return $dir;
+    }
+
 }
