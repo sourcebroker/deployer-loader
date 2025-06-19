@@ -112,6 +112,17 @@ detailed information about the conflict, including which package caused it.
     ],
 
 
+Check if configuration is loaded
+-------------------------------
+
+You can check if a specific configuration item has already been loaded using the ``isLoaded()`` method:
+
+::
+
+    if (\SourceBroker\DeployerLoader\Utility\LoadUtility::isLoaded(['package' => 'sourcebroker/deployer-typo3-deploy'])) {
+
+    }
+
 Changelog
 ---------
 

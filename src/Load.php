@@ -3,6 +3,7 @@
 namespace SourceBroker\DeployerLoader;
 
 use SourceBroker\DeployerLoader\Utility\FileUtility;
+use SourceBroker\DeployerLoader\Utility\LoadUtility;
 
 class Load
 {
@@ -22,6 +23,7 @@ class Load
         $this->projectRoot = $this->fileUtility->projectRootAbsolutePath(__DIR__);
 
         $this->discoverLoaderConfigurations($loaderConfigurations);
+        $this->initializeLoadUtility();
         $this->findConflicts();
         $this->processRawConfigurations();
         $this->processCollectedLoaders();
@@ -157,6 +159,14 @@ class Load
                     }
                 }
             }
+        }
+    }
+
+    protected function initializeLoadUtility(): void
+    {
+        LoadUtility::$loadedItems = [];
+        foreach ($this->rawLoaderConfigurations as $entry) {
+            LoadUtility::$loadedItems[] = $entry['config'];
         }
     }
 }
