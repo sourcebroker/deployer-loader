@@ -94,6 +94,24 @@ Usage
    );
 
 
+Conflict detection
+-----------------
+
+If a loader specifies a 'conflict' configuration that matches another loaded configuration, an exception is thrown with
+detailed information about the conflict, including which package caused it.
+
+::
+
+    [
+        'package' => 'sourcebroker/deployer-typo3-deploy',
+        'conflict' => [
+            'package' => [
+                'sourcebroker/deployer-typo3-deploy-ci'
+            ]
+        ]
+    ],
+
+
 Changelog
 ---------
 

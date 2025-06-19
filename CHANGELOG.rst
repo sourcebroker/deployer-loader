@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [FEATURE] Add conflict detection for configuration loaders.
+
 5.0.0
 ~~~~~
 
