@@ -1,8 +1,8 @@
 Changelog
 ---------
 
-master
-~~~~~~
+5.1.0
+~~~~~
 
 1) [FEATURE] Add conflict detection for configuration loaders.
 2) [FEATURE] Add a check if a specific configuration item has already been loaded.
