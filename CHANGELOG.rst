@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+5.1.1
+~~~~~
+
+1) [BUGFIX] Avoid implicitly nullable class method parameter. (thanks to `@jmeinert <https://github.com/jmeinert>`_)
+2) [TASK] Add .ddev config and .gitattributes to enforce LF, text=auto, and export-ignore dotfile.
+
 5.1.0
 ~~~~~
 
