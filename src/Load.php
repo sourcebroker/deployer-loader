@@ -114,7 +114,7 @@ class Load
         require_once($target);
     }
 
-    protected function loadPath(string $target, string $excludePattern = null): void
+    protected function loadPath(string $target, ?string $excludePattern = null): void
     {
         $absolutePath = $this->projectRoot . '/' . ltrim($target, '/\\');
         if (is_dir($absolutePath)) {
